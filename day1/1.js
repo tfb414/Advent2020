@@ -202,6 +202,7 @@ const input = [
 ]
 
 const get2020Sum = (input) => {
+    console.log(input.find((value) => value + input[0] === 2020), input[0]);
     return [input.find((value) => value + input[0] === 2020), input[0]];
 }
 

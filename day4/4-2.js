@@ -26,7 +26,7 @@ const convertToObj = (data) => {
 //validate data
 const isBetween = (year, lowThreshold, highThreshold) => {
     const parsedYear =  parseInt(year);
-    return (highThreshold > parsedYear && parsedYear > lowThreshold)
+    return (highThreshold >= parsedYear && parsedYear >= lowThreshold)
 }
 
 const passportValidationRules = {
@@ -44,17 +44,25 @@ const passportValidationRules = {
             const cleanedHeight = height.replace('cm', '');
             return isBetween(cleanedHeight, 150, 193);
         }
-        const cleanedHeight = height.replace('in', '');
-        return isBetween(cleanedHeight, 59, 76);
+        if (height.endsWith('in')) {
+            const cleanedHeight = height.replace('in', '');
+            return isBetween(cleanedHeight, 59, 76);
+        }
+        return false;
     },
-    hcl: function() {
-        return true
+    hcl: function(color) {
+        const regex = new RegExp('#[0-9a-f]{6}', 'g');
+        return color.match(regex);
     },
-    ecl: function() {
-        return true
+    ecl: function(eyeColor) {
+        const regex = new RegExp('(amb|blu|brn|gry|grn|hzl|oth){1}', 'g');
+        return eyeColor.match(regex);
     },
-    pid: function() {
-        return true;
+    pid: function(pid) {
+        const regex = new RegExp('[0-9]{9}', 'g')
+        console.log(pid, pid.match(regex) && pid.length === 9)
+        return pid.match(regex) && pid.length === 9;
+
     }
 
 }

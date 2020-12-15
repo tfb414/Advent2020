@@ -23,7 +23,7 @@ const convertToObj = (data) => {
 }
 
 const checkPassport = (passport) => {
-    const fieldsToCheck = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']
+    const fieldsToCheck = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid'];
     const keys = Object.keys(passport);
     return fieldsToCheck.map(field => {
         return keys.indexOf(field) >= 0;
